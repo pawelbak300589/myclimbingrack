@@ -10,7 +10,7 @@ services:
       - ./api:/usr/src/app/api
       - /usr/src/app/api/node_modules
     environment:
-      DB_URI: mysqldb://mysqldb:27017/my-climbing-rack
+      DB_URI: mysqldb://root:asd123@localhost:3306/my-climbing-rack
     depends_on:
       - mysqldb
   react-ui:
@@ -33,7 +33,7 @@ services:
     environment:
       MYSQL_ROOT_USERNAME: root
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: my-climbing-rack
+      MYSQL_DATABASE: my-climbing-rack-dev
       MYSQL_USER: user
       MYSQL_PASSWORD: password
 

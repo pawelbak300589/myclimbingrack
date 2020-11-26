@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "root",
+    "password": "rootpassword",
+    "database": "my-climbing-rack-dev",
+    "host": "localhost",
+    "port": "3389",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "rootpassword",
+    "database": "my-climbing-rack-test",
+    "port": "3389",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "my-climbing-rack",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -1,21 +1,30 @@
-import jest from 'jest';
+import request from 'supertest';
+import app from '../../app';
 
-description('authRouter', () => {
-  description('currentUser', () => {
+describe('authRouter', () => {
+  describe('currentUser', () => {
     it('responds with null if user is not authenticated', () => {});
 
     it('responds with details about current user', () => {});
   });
 
-  description('signIn', () => {
-    it('fails when incorrect email is provided', () => {});
+  describe('signIn', () => {
+    it('fails when incorrect email is provided', () => {
+      // return request(app)
+      //   .post('/api/auth/signin')
+      //   .send({
+      //     email: 'test@test.com',
+      //     password: 'password',
+      //   })
+      //   .expect(400);
+    });
 
     it('fails when incorrect password is provided', () => {});
 
     it('responds with cookie if login details are correct', () => {});
   });
 
-  description('signUp', () => {
+  describe('signUp', () => {
     it('fails when incorrect email is provided', () => {});
 
     it('fails when incorrect password is provided', () => {});
@@ -25,7 +34,7 @@ description('authRouter', () => {
     it('responds with user details if registration data is correct', () => {});
   });
 
-  description('signOut', () => {
+  describe('signOut', () => {
     it('clears the cookie after signout', () => {});
   });
 });

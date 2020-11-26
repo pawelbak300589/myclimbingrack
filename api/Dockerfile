@@ -7,4 +7,5 @@ COPY . .
 
 EXPOSE 3080
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "db:reset"]
+CMD ["npm", "run", "start:dev"]

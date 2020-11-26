@@ -1,19 +1,19 @@
 import jest from 'jest';
 
-description('userRouter', () => {
-  description('getAll', () => {
+describe('userRouter', () => {
+  describe('getAll', () => {
     it('responds with not authenticated error if user not signed in', () => {});
 
     it('responds with details of all users', () => {});
   });
 
-  description('getOne', () => {
+  describe('getOne', () => {
     it('responds with not authenticated error if user not signed in', () => {});
 
     it('responds with user details', () => {});
   });
 
-  description('create', () => {
+  describe('create', () => {
     it('responds with not authenticated error if user not signed in', () => {});
 
     it('fails when incorrect name is provided', () => {});
@@ -23,6 +23,6 @@ description('userRouter', () => {
 
     it('responds with details of new user', () => {});
   });
-  description('update', () => {});
-  description('remove', () => {});
+  describe('update', () => {});
+  describe('remove', () => {});
 });
