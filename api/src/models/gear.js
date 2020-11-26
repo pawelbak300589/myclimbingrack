@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsToMany(models.Set, {
         foreignKey: 'gearId',
-        through: 'GearSet',
+        through: 'Gear_Set',
         as: 'Set',
       });
       this.belongsToMany(models.List, {
         foreignKey: 'gearId',
-        through: 'GearList',
+        through: 'Gear_List',
         as: 'List',
       });
     }

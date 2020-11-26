@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsToMany(models.Gear, {
         foreignKey: 'setId',
-        through: 'GearSet',
+        through: 'Gear_Set',
         as: 'Gear',
       });
     }
