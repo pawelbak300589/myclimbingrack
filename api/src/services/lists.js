@@ -1,7 +1,6 @@
 import { List } from '../models';
 
 const create = async (name, description, order, userId) => {
-  // TODO: check if list already exist
   return await List.create({ name, description, order, userId });
 };
 

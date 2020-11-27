@@ -1,7 +1,6 @@
 import { Set } from '../models';
 
 const create = async (name, description, order, userId) => {
-  // TODO: check if set already exist
   return await Set.create({ name, description, order, userId });
 };
 

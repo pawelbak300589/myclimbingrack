@@ -1,7 +1,6 @@
 import { Gear } from '../models/';
 
 const create = async (name, description, userId) => {
-  // TODO: check if gear already exist
   return await Gear.create({ name, description, userId });
 };
 
