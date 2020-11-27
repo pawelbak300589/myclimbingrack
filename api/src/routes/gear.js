@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 
 import gearsController from '../controllers/gear';
 import { validateRequest } from '../middlewares';
+import { Gear } from '../models';
 
 const router = express.Router();
 
@@ -18,11 +19,16 @@ router.post(
       .not()
       .isEmpty()
       .withMessage('Please enter gear name.')
-      // .custom((value, { req }) => {
-      //   if (value !== req.body.passwordConfirmation) {
-      //     throw new Error('Password confirmation is incorrect');
-      //   }
-      // })
+      .custom(async (name) => {
+        const exists = await Gear.findOne({
+          where: {
+            name: name,
+          },
+        });
+        if (exists) {
+          throw new Error('Gear name already in use');
+        }
+      })
       .trim()
       .escape(),
     body('description').trim().escape(),
