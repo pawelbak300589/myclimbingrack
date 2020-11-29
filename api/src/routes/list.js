@@ -10,10 +10,10 @@ const router = express.Router();
 // TODO: add validations
 // TODO: add validation middleware
 
-router.get('/api/lists/', listsController.getAll);
-router.get('/api/lists/:id', listsController.getOne);
+router.get('/', listsController.getAll);
+router.get('/:id', listsController.getOne);
 router.post(
-  '/api/lists/',
+  '/',
   [
     body('name')
       .not()
@@ -49,7 +49,7 @@ router.post(
   listsController.create
 );
 router.put(
-  '/api/lists/:id',
+  '/:id',
   [
     body('name')
       .not()
@@ -84,6 +84,6 @@ router.put(
   validateRequest,
   listsController.update
 );
-router.delete('/api/lists/', listsController.remove);
+router.delete('/', listsController.remove);
 
 export default router;

@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -15,28 +16,48 @@ module.exports = {
       'Users',
       [
         {
+          email: 'pawelbak300589@gmail.com',
+          passwordHash: await bcrypt.hash('123456789', 10),
           firstName: 'Pawel',
           lastName: 'Bak',
-          email: 'pawelbak300589@gmail.com',
-          password: '123456789',
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          acceptTerms: true,
+          role: 'Admin',
+          verified: new Date(),
+          created: new Date(),
+          updated: new Date(),
         },
         {
+          email: 'emiliamlak@gmail.com',
+          passwordHash: await bcrypt.hash('123456789', 10),
           firstName: 'Emilia',
           lastName: 'Mlak',
-          email: 'emiliamlak@gmail.com',
-          password: '123456789',
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          acceptTerms: true,
+          role: 'Admin',
+          verified: new Date(),
+          created: new Date(),
+          updated: new Date(),
         },
         {
+          email: 'ulastopka@test.com',
+          passwordHash: await bcrypt.hash('123456789', 10),
           firstName: 'Ula',
           lastName: 'Stopka',
-          email: 'ulastopka@test.com',
-          password: '123456789',
-          createdAt: new Date(),
-          updatedAt: new Date(),
+          acceptTerms: true,
+          role: 'User',
+          verified: new Date(),
+          created: new Date(),
+          updated: new Date(),
+        },
+        {
+          email: 'radekkowalczyk@test.com',
+          passwordHash: await bcrypt.hash('123456789', 10),
+          firstName: 'Radek',
+          lastName: 'Kowalczyk',
+          acceptTerms: true,
+          role: 'User',
+          verified: new Date(),
+          created: new Date(),
+          updated: new Date(),
         },
       ],
       {}

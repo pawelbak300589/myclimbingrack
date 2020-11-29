@@ -1,8 +1,8 @@
 import express from 'express';
 import { body } from 'express-validator';
 
-import gearsController from '../controllers/gear';
-import { validateRequest } from '../middlewares';
+import gearsController from '../controllers/gears';
+import { validateRequest, requireAuth } from '../middlewares';
 import { Gear } from '../models';
 
 const router = express.Router();
@@ -10,10 +10,11 @@ const router = express.Router();
 // TODO: add validations
 // TODO: add validation middleware
 
-router.get('/api/gears/', gearsController.getAll);
-router.get('/api/gears/:id', gearsController.getOne);
+router.get('/', requireAuth, gearsController.getAll);
+router.get('/:id', requireAuth, gearsController.getOne);
 router.post(
-  '/api/gears/',
+  '/',
+  requireAuth,
   [
     body('name')
       .not()
@@ -43,7 +44,8 @@ router.post(
   gearsController.create
 );
 router.put(
-  '/api/gears/:id',
+  '/:id',
+  requireAuth,
   [
     body('name')
       .not()
@@ -62,6 +64,6 @@ router.put(
   validateRequest,
   gearsController.update
 );
-router.delete('/api/gears/', gearsController.remove);
+router.delete('/', requireAuth, gearsController.remove);
 
 export default router;

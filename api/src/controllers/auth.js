@@ -1,28 +1,122 @@
-import usersService from '../services/users';
-import jwt from 'jsonwebtoken';
+import authService from '../services/auth';
+import { Role, setTokenCookie } from '../helpers';
 
-const signIn = async (req, res) => {
+const authenticate = async (req, res, next) => {
   const { email, password } = req.body;
-  // const existingUser = await User.findOne({ where: { email: email } });
+  const ipAddress = req.ip;
 
-  // if (!existingUser) {
-    // throw new BadRequestError('Invalid credentials');
-  // }
-
-  // return res.status(200).send(existingUser);
-  // return res.status(200).send(JSON.stringify(existingUser));
+  try {
+    const { refreshToken, ...account } = await authService.authenticate({
+      email,
+      password,
+      ipAddress,
+    });
+    setTokenCookie(res, refreshToken);
+    res.json(account);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const signUp = async (req, res) => {
-  // TODO
+const refreshToken = async (req, res, next) => {
+  const token = req.cookies.refreshToken;
+  const ipAddress = req.ip;
+
+  try {
+    const { refreshToken, ...account } = await authService.refreshToken({
+      token,
+      ipAddress,
+    });
+    setTokenCookie(res, refreshToken);
+    res.json(account);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const signOut = async (req, res) => {
-  // TODO
+const revokeToken = async (req, res, next) => {
+  // accept token from request body or cookie
+  const token = req.body.token || req.cookies.refreshToken;
+  const ipAddress = req.ip;
+
+  if (!token) return res.status(400).json({ message: 'Token is required' });
+
+  // users can revoke their own tokens and admins can revoke any tokens
+  if (!req.user.ownsToken(token) && req.user.role !== Role.Admin) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  try {
+    await authService.revokeToken({ token, ipAddress });
+    res.json({ message: 'Token revoked' });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const currentUser = async (req, res) => {
-  res.send({ currentUser: req.currentUser || null });
+const register = async (req, res, next) => {
+  try {
+    await authService.register(req.body, req.get('origin'));
+    res.json({
+      message:
+        'Registration successful, please check your email for verification instructions',
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
-export default { signIn, signUp, signOut, currentUser };
+const verifyEmail = async (req, res, next) => {
+  try {
+    await authService.verifyEmail(req.body);
+    res.json({
+      message: 'Verification successful, you can now login',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const forgotPassword = async (req, res, next) => {
+  try {
+    await authService.forgotPassword(req.body, req.get('origin'));
+    res.json({
+      message: 'Please check your email for password reset instructions',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const validateResetToken = async (req, res, next) => {
+  try {
+    await authService.validateResetToken(req.body);
+    res.json({
+      message: 'Token is valid',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  try {
+    await authService.resetPassword(req.body);
+    res.json({
+      message: 'Password reset successful, you can now login',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default {
+  authenticate,
+  refreshToken,
+  revokeToken,
+  register,
+  verifyEmail,
+  forgotPassword,
+  validateResetToken,
+  resetPassword,
+};

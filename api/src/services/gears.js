@@ -1,38 +1,50 @@
 import { Gear } from '../models/';
 
-const create = async (name, description, userId) => {
+const create = async (req) => {
+  const { name, description } = req.body;
+  const userId = req.currentUser.id;
   return await Gear.create({ name, description, userId });
 };
 
-const update = async (id, name, description, userId) => {
+const update = async (req) => {
+  const { name, description } = req.body;
+  const userId = req.currentUser.id;
   return await Gear.update(
     { name, description, userId },
     {
       where: {
-        id: id,
+        id: req.params.id,
+        userId: userId,
       },
     }
   );
 };
 
-const remove = async (id) => {
+const remove = async (req) => {
   return await Gear.destroy({
     where: {
-      id: id,
+      id: req.params.id,
+      userId: req.currentUser.id,
     },
   });
 };
 
-const getAll = async () => {
-  const gears = await Gear.findAll();
+const getAll = async (req) => {
+  const gears = await Gear.findAll({
+    where: {
+      userId: req.currentUser.id,
+    },
+  });
   if (gears === null) {
     throw new Error('No gears found!');
   }
   return gears;
 };
 
-const getOne = async (id) => {
-  const gear = await Gear.findByPk(id);
+const getOne = async (req) => {
+  const gear = await Gear.findOne({
+    where: { id: req.params.id, userId: req.currentUser.id },
+  });
   if (gear === null) {
     throw new Error('Gear not found!');
   }

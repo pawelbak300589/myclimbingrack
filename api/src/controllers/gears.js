@@ -1,9 +1,8 @@
 import gearService from '../services/gears';
 
 const create = async (req, res) => {
-  const { name, description, userId } = req.body;
   try {
-    const gear = await gearService.create(name, description, userId);
+    const gear = await gearService.create(req);
     return res.status(201).json({
       gear,
     });
@@ -13,10 +12,8 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const id = req.params.id;
-  const { name, description, userId } = req.body;
   try {
-    const gear = await gearService.update(id, name, description, userId);
+    const gear = await gearService.update(req);
     return res.status(200).json({
       gear,
     });
@@ -26,9 +23,8 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const id = req.params.id;
   try {
-    const gear = await gearService.remove(id);
+    const gear = await gearService.remove(req);
     return res.status(200).json({
       gear,
     });
@@ -39,7 +35,7 @@ const remove = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const gears = await gearService.getAll();
+    const gears = await gearService.getAll(req);
     return res.status(200).json({
       gears,
     });
@@ -49,9 +45,8 @@ const getAll = async (req, res) => {
 };
 
 const getOne = async (req, res) => {
-  const id = req.params.id;
   try {
-    const gear = await gearService.getOne(id);
+    const gear = await gearService.getOne(req);
     return res.status(200).json({
       gear,
     });

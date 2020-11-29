@@ -45,4 +45,4 @@ const getOne = async (id) => {
   return user;
 };
 
-export default { create, update, remove };
+export default { create, update, remove, getAll, getOne };
