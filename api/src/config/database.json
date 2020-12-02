@@ -3,7 +3,7 @@
     "username": "root",
     "password": "rootpassword",
     "database": "my-climbing-rack-dev",
-    "host": "localhost",
+    "host": "mysqldb",
     "port": "3389",
     "dialect": "mysql"
   },

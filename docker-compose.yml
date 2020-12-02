@@ -13,6 +13,8 @@ services:
       DB_URI: mysqldb://root:asd123@localhost:3306/my-climbing-rack
     depends_on:
       - mysqldb
+    networks:
+      - my_climbing_rack
   react-ui:
     build:
       context: ./client
@@ -23,19 +25,34 @@ services:
     volumes:
       - ./client:/usr/src/app/client
       - /usr/src/app/client/node_modules
+    networks:
+      - my_climbing_rack
   mysqldb:
     image: mysql:latest
     container_name: mysqldb
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - 3389:3306
+      - '3389:3306'
     environment:
       MYSQL_ROOT_USERNAME: root
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: my-climbing-rack-dev
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+    networks:
+      - my_climbing_rack
+  maildev:
+    image: djfarrelly/maildev
+    container_name: maildev
+    ports:
+      - 1080:80
+      - 1025:25
+    networks:
+      - my_climbing_rack
 
 volumes:
   mongodb_data_container:
+
+networks:
+  my_climbing_rack:
