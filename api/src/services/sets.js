@@ -1,4 +1,4 @@
-import { Set } from '../models';
+const { Set } = require('../models/index.js');
 
 const create = async (name, description, order, userId) => {
   return await Set.create({ name, description, order, userId });
@@ -39,4 +39,4 @@ const getOne = async (id) => {
   return set;
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

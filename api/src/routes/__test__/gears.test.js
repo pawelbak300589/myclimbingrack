@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from '../../app';
+const request = require('supertest');
+const app = require('../../app');
 
 describe('gearRouter', () => {
   describe('create', () => {
@@ -10,8 +10,8 @@ describe('gearRouter', () => {
     // it('fails when incorrect password is provided', () => {});
     // it('responds with details of new user', () => {});
   });
-  describe('update', () => {});
-  describe('remove', () => {});
+  describe('update', () => { });
+  describe('remove', () => { });
   describe('getAll', () => {
     it('responds with not authenticated error if user not signed in', async () => {
       await request(app).get('/api/gears').expect(401);

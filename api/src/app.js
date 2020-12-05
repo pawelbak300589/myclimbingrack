@@ -1,16 +1,16 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import logger from 'morgan';
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const logger = require('morgan');
 
-import authRouter from './routes/auth';
-import userRouter from './routes/user';
-import gearRouter from './routes/gear';
-import setRouter from './routes/set';
-import listRouter from './routes/list';
+const authRouter = require('./routes/auth.js');
+const userRouter = require('./routes/user.js');
+const gearRouter = require('./routes/gear.js');
+const setRouter = require('./routes/set.js');
+const listRouter = require('./routes/list.js');
 
-import { errorHandler } from './middlewares';
-import { NotFoundError } from './errors';
+const { errorHandler } = require('./middlewares/index.js');
+const { NotFoundError } = require('./errors/index.js');
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -47,4 +47,4 @@ app.all('*', () => {
 // global error handler
 app.use(errorHandler);
 
-export default app;
+module.exports = app;

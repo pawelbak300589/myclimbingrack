@@ -1,4 +1,4 @@
-import { Gear } from '../models/';
+const { Gear } = require('../models/index.js');
 
 const create = async (req) => {
   const { name, description } = req.body;
@@ -51,4 +51,4 @@ const getOne = async (req) => {
   return gear;
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

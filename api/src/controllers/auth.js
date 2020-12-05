@@ -1,5 +1,5 @@
-import authService from '../services/auth';
-import { Role, setTokenCookie } from '../helpers';
+const authService = require('../services/auth.js');
+const { Role, setTokenCookie } = require('../helpers/index.js');
 
 const authenticate = async (req, res, next) => {
   const { email, password } = req.body;
@@ -110,7 +110,7 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
-export default {
+module.exports = {
   authenticate,
   refreshToken,
   revokeToken,

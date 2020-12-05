@@ -4,8 +4,14 @@
     "password": "rootpassword",
     "database": "my-climbing-rack-dev",
     "host": "mysqldb",
-    "port": "3389",
-    "dialect": "mysql"
+    "port": "3306",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
     "username": "root",

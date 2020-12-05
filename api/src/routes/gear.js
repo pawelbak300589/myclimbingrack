@@ -1,9 +1,9 @@
-import express from 'express';
-import { body } from 'express-validator';
+const express = require('express');
+const { body } = require('express-validator');
 
-import gearsController from '../controllers/gears';
-import { validateRequest, requireAuth } from '../middlewares';
-import { Gear } from '../models';
+const gearsController = require('../controllers/gears.js');
+const { validateRequest, requireAuth } = require('../middlewares/index.js');
+const { Gear } = require('../models/index.js');
 
 const router = express.Router();
 
@@ -66,4 +66,4 @@ router.put(
 );
 router.delete('/', requireAuth, gearsController.remove);
 
-export default router;
+module.exports = router;

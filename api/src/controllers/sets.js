@@ -1,4 +1,4 @@
-import setService from '../services/sets';
+const setService = require('../services/sets.js');
 
 const create = async (req, res) => {
   const { name, description, order, userId } = req.body;
@@ -60,4 +60,4 @@ const getOne = async (req, res) => {
   }
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

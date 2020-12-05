@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User } = require('../models/index.js');
 
 const create = async (firstName, lastName, email, password) => {
   // TODO: validate email and throw errors if email exists etc.
@@ -45,4 +45,4 @@ const getOne = async (id) => {
   return user;
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

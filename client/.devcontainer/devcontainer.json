@@ -1,0 +1,13 @@
+{
+  "name": "React APP",
+  "dockerComposeFile": ["../../docker-compose.yml"],
+  "service": "react-client",
+  "workspaceFolder": "/usr/src/app/client",
+  "settings": {
+    "terminal.integrated.shell.linux": null
+  },
+  "extensions": [],
+  "forwardPorts": [3000, 3389, 1080],
+  "shutdownAction": "none",
+  "postCreateCommand": "npm install && npm start"
+}

@@ -1,8 +1,8 @@
-import jwt from 'express-jwt';
-import { secret } from '../config/app.json';
-import { User } from '../models';
+const jwt = require('express-jwt');
+const { secret } = require('../config/app.json');
+const { User } = require('../models/index.js');
 
-export const authorize = (roles = []) => {
+const authorize = (roles = []) => {
   // roles param can be a single role string (e.g. Role.User or 'User')
   // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
   if (typeof roles === 'string') {
@@ -31,3 +31,5 @@ export const authorize = (roles = []) => {
     },
   ];
 };
+
+module.exports = authorize;

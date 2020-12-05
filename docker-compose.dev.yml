@@ -13,7 +13,8 @@ services:
       - mysqldb
     networks:
       - my_climbing_rack
-    # command: /bin/sh -c "while sleep 1000; do :; done"
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
   react-client:
     build:
       context: ./client
@@ -24,7 +25,8 @@ services:
       - ./client:/usr/src/app/client
     networks:
       - my_climbing_rack
-    # command: /bin/sh -c "while sleep 1000; do :; done"
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
   mysqldb:
     container_name: mysqldb
     image: mysql:latest
@@ -48,6 +50,9 @@ services:
       - 1025:25
     networks:
       - my_climbing_rack
+
+volumes:
+  mongodb_data_container:
 
 networks:
   my_climbing_rack:

@@ -1,9 +1,9 @@
-import express from 'express';
-import { body } from 'express-validator';
+const express = require('express');
+const { body } = require('express-validator');
 
-import listsController from '../controllers/lists';
-import { validateRequest } from '../middlewares';
-import { List } from '../models';
+const listsController = require('../controllers/lists.js');
+const { validateRequest } = require('../middlewares/index.js');
+const { List } = require('../models/index.js');
 
 const router = express.Router();
 
@@ -86,4 +86,4 @@ router.put(
 );
 router.delete('/', listsController.remove);
 
-export default router;
+module.exports = router;

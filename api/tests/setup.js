@@ -1,12 +1,12 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 beforeAll(async () => {
   process.env.JWT_KEY = 'asdasdasd';
 });
 
-beforeEach(async () => {});
+beforeEach(async () => { });
 
-afterAll(async () => {});
+afterAll(async () => { });
 
 global.signin = async () => {
   const payload = {

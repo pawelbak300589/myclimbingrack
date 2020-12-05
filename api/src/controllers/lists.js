@@ -1,4 +1,4 @@
-import listService from '../services/lists';
+const listService = require('../services/lists.js');
 
 const create = async (req, res) => {
   const { name, description, order, userId } = req.body;
@@ -60,4 +60,4 @@ const getOne = async (req, res) => {
   }
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

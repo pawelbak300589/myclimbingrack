@@ -1,9 +1,9 @@
-import express from 'express';
-import { body } from 'express-validator';
+const express = require('express');
+const { body } = require('express-validator');
 
-import setsController from '../controllers/sets';
-import { validateRequest } from '../middlewares';
-import { Set } from '../models';
+const setsController = require('../controllers/sets.js');
+const { validateRequest } = require('../middlewares/index.js');
+const { Set } = require('../models/index.js');
 
 const router = express.Router();
 
@@ -86,4 +86,4 @@ router.put(
 );
 router.delete('/', setsController.remove);
 
-export default router;
+module.exports = router;

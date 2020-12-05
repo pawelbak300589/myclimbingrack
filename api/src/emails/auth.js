@@ -1,6 +1,6 @@
-import sendEmail from '../helpers/email';
+const sendEmail = require('../helpers/email.js');
 
-export const sendVerificationEmail = async (user, origin) => {
+exports.sendVerificationEmail = async (user, origin) => {
   let message;
   if (origin) {
     const verifyUrl = `${origin}/user/verify-email?token=${user.verificationToken}`;
@@ -20,7 +20,7 @@ export const sendVerificationEmail = async (user, origin) => {
   });
 };
 
-export const sendAlreadyRegisteredEmail = async (email, origin) => {
+exports.sendAlreadyRegisteredEmail = async (email, origin) => {
   let message;
   if (origin) {
     message = `<p>If you don't know your password please visit the <a href="${origin}/user/forgot-password">forgot password</a> page.</p>`;
@@ -37,7 +37,7 @@ export const sendAlreadyRegisteredEmail = async (email, origin) => {
   });
 };
 
-export const sendPasswordResetEmail = async (user, origin) => {
+exports.sendPasswordResetEmail = async (user, origin) => {
   let message;
   if (origin) {
     const resetUrl = `${origin}/user/reset-password?token=${user.resetToken}`;

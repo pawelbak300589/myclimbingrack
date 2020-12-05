@@ -1,4 +1,4 @@
-import usersService from '../services/users';
+const usersService = require('../services/users.js');
 
 const getAll = async (req, res) => {
   return res.status(200).json({
@@ -26,4 +26,4 @@ const remove = async (req, res) => {
   // TODO
 };
 
-export default { getAll, create, update, remove };
+module.exports = { getAll, create, update, remove };

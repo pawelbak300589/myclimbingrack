@@ -1,6 +1,6 @@
-import { CustomError } from './custom-error';
+const CustomError = require('./custom-error.js');
 
-export class NotAuthorizedError extends CustomError {
+class NotAuthorizedError extends CustomError {
   constructor() {
     const reason = 'Not Authorized';
     super(reason);
@@ -12,3 +12,5 @@ export class NotAuthorizedError extends CustomError {
     return [{ message: this.message }];
   }
 }
+
+module.exports = NotAuthorizedError;

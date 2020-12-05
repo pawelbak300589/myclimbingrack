@@ -1,4 +1,4 @@
-import gearService from '../services/gears';
+const gearService = require('../services/gears.js');
 
 const create = async (req, res) => {
   try {
@@ -55,4 +55,4 @@ const getOne = async (req, res) => {
   }
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

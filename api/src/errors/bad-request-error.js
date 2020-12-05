@@ -1,6 +1,6 @@
-import { CustomError } from './custom-error';
+const CustomError = require('./custom-error.js');
 
-export class BadRequestError extends CustomError {
+class BadRequestError extends CustomError {
   constructor(message) {
     super(message);
     this.message = message;
@@ -11,3 +11,5 @@ export class BadRequestError extends CustomError {
     return [{ message: this.message }];
   }
 }
+
+exports.BadRequestError = BadRequestError;

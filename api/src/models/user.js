@@ -41,7 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
-      updated: { type: DataTypes.DATE },
+      updated: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
+      },
       isVerified: {
         type: DataTypes.VIRTUAL,
         get() {

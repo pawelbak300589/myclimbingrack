@@ -1,6 +1,6 @@
-import { CustomError } from './custom-error';
+const CustomError = require('./custom-error.js');
 
-export class DatabaseConnectionError extends CustomError {
+class DatabaseConnectionError extends CustomError {
   constructor() {
     const reason = 'Error connecting to database';
     super(reason);
@@ -12,3 +12,5 @@ export class DatabaseConnectionError extends CustomError {
     return [{ message: this.message }];
   }
 }
+
+module.exports = DatabaseConnectionError;

@@ -1,7 +1,7 @@
-import express from 'express';
+const express = require('express');
 
-import authController from '../controllers/auth';
-import {
+const authController = require('../controllers/auth.js');
+const {
   authenticateSchema,
   revokeTokenSchema,
   registerSchema,
@@ -9,8 +9,8 @@ import {
   forgotPasswordSchema,
   validateResetTokenSchema,
   resetPasswordSchema,
-} from '../validators/auth';
-import { authorize, validateRequest } from '../middlewares';
+} = require('../validators/auth.js');
+const { authorize, validateRequest } = require('../middlewares/index.js');
 
 const router = express.Router();
 
@@ -59,4 +59,4 @@ router.post(
   authController.resetPassword
 );
 
-export default router;
+module.exports = router;

@@ -1,7 +1,7 @@
-import { ValidationError } from 'express-validator';
-import { CustomError } from './custom-error';
+const ValidationError = require('express-validator');
+const CustomError = require('./custom-error.js');
 
-export class RequestValidationError extends CustomError {
+class RequestValidationError extends CustomError {
   constructor(errors) {
     const reason = 'Invalid request parameters';
     super(reason);
@@ -16,3 +16,5 @@ export class RequestValidationError extends CustomError {
     });
   }
 }
+
+module.exports = RequestValidationError;

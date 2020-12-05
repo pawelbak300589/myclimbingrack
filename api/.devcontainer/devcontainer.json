@@ -1,0 +1,13 @@
+{
+  "name": "Node API",
+  "dockerComposeFile": ["../../docker-compose.yml"],
+  "service": "nodejs-api",
+  "workspaceFolder": "/usr/src/app/api",
+  "settings": {
+    "terminal.integrated.shell.linux": null
+  },
+  "extensions": [],
+  "forwardPorts": [3080, 3389, 1080],
+  "shutdownAction": "none",
+  "postCreateCommand": "npm install && npm run db:reset"
+}

@@ -1,19 +1,19 @@
-import { Op } from 'sequelize';
-import config from '../config/app.json';
-import { User } from '../models';
-import {
+const { Op } = require('sequelize');
+const config = require('../config/app.json');
+const { User } = require('../models/index.js');
+const {
   Role,
   generateJwtToken,
   generateRefreshToken,
   getRefreshToken,
   randomTokenString,
   hash,
-} from '../helpers';
-import {
+} = require('../helpers/index.js');
+const {
   sendAlreadyRegisteredEmail,
   sendPasswordResetEmail,
   sendVerificationEmail,
-} from '../emails';
+} = require('../emails/index.js');
 
 const authenticate = async ({ email, password, ipAddress }) => {
   const user = User.scope('withHash').findOne({
@@ -150,7 +150,7 @@ const resetPassword = async ({ token, password }) => {
   await user.save();
 };
 
-export default {
+module.exports = {
   authenticate,
   refreshToken,
   revokeToken,

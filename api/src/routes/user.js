@@ -1,7 +1,7 @@
-import express from 'express';
-import { body } from 'express-validator';
+const express = require('express');
+const { body } = require('express-validator');
 
-import usersController from '../controllers/users';
+const usersController = require('../controllers/users.js');
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.post('/', usersController.create);
 router.put('/:id', usersController.update);
 router.delete('/', usersController.remove);
 
-export default router;
+module.exports = router;

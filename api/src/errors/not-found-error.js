@@ -1,6 +1,6 @@
-import { CustomError } from './custom-error';
+const CustomError = require('./custom-error.js');
 
-export class NotFoundError extends CustomError {
+class NotFoundError extends CustomError {
   constructor() {
     const reason = 'Route not found';
     super(reason);
@@ -12,3 +12,5 @@ export class NotFoundError extends CustomError {
     return [{ message: this.message }];
   }
 }
+
+module.exports = NotFoundError;

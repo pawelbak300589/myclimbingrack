@@ -1,10 +1,11 @@
-import bcrypt from 'bcryptjs';
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
-import { User, RefreshToken } from '../models';
+const db = require('../models/index.js');
+const { User, RefreshToken } = require('../models/index.js');
 
-export const setTokenCookie = (res, token) => {
+exports.setTokenCookie = (res, token) => {
   // create cookie with refresh token that expires in 7 days
   const cookieOptions = {
     httpOnly: true,
@@ -14,32 +15,32 @@ export const setTokenCookie = (res, token) => {
 };
 
 // TODO: should I move it to user helpers???
-export const getUser = async (id) => {
+exports.getUser = async (id) => {
   const user = await User.findByPk(id);
   if (!user) throw Error('User not found'); // TODO: create or use my custom errors
   return user;
 };
 
 // TODO: should I move it to refresh-token or token helpers???
-export const getRefreshToken = async (token) => {
+exports.getRefreshToken = async (token) => {
   const refreshToken = await RefreshToken.findOne({ where: { token } });
   if (!refreshToken || !refreshToken.isActive) throw Error('Invalid token'); // TODO: create or use my custom errors
   return refreshToken;
 };
 
 // TODO: should I move it to password helpers???
-export const hash = async (password) => {
+exports.hash = async (password) => {
   return await bcrypt.hash(password, 10);
 };
 
-export const generateJwtToken = (user) => {
+exports.generateJwtToken = (user) => {
   // create a jwt token containing the user id that expires in 15 minutes
   return jwt.sign({ sub: user.id, id: user.id }, config.secret, {
     expiresIn: '15m',
   });
 };
 
-export const generateRefreshToken = (user, ipAddress) => {
+exports.generateRefreshToken = (user, ipAddress) => {
   // create a refresh token that expires in 7 days
   return new RefreshToken({
     userId: user.id,
@@ -49,12 +50,12 @@ export const generateRefreshToken = (user, ipAddress) => {
   });
 };
 
-export const randomTokenString = () => {
+exports.randomTokenString = () => {
   return crypto.randomBytes(40).toString('hex');
 };
 
 // TODO: should I move it to user helpers???
-export const basicDetails = (user) => {
+exports.basicDetails = (user) => {
   const {
     id,
     firstName,

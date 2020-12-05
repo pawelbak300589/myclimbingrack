@@ -1,6 +1,6 @@
 // Re-export stuff from middlewares
-export * from './error-handler';
-export * from './require-auth';
-export * from './validate-request';
-export * from './current-user';
-export * from './authorize';
+exports.errorHandler = require('./error-handler.js');
+exports.requireAuth = require('./require-auth.js');
+exports.validateRequest = require('./validate-request.js');
+exports.currentUser = require('./current-user.js');
+exports.authorize = require('./authorize.js');

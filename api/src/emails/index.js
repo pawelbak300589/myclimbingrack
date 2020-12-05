@@ -1,2 +1,4 @@
 // Re-export stuff from emails
-export * from './auth';
+module.exports = {
+  ...require('./auth.js'),
+};

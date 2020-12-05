@@ -1,4 +1,4 @@
-export class CustomError extends Error {
+class CustomError extends Error {
 
   constructor(message = 'Not Found', statusCode = 404) {
     super(message);
@@ -10,3 +10,5 @@ export class CustomError extends Error {
     return [{ message: this.message }];
   }
 }
+
+module.exports = CustomError;

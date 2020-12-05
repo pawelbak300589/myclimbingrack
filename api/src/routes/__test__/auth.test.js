@@ -1,11 +1,11 @@
-import request from 'supertest';
-import app from '../../app';
+const request = require('supertest');
+const app = require('../../app');
 
 describe('authRouter', () => {
   describe('currentUser', () => {
-    it('responds with null if user is not authenticated', () => {});
+    it('responds with null if user is not authenticated', () => { });
 
-    it('responds with details about current user', () => {});
+    it('responds with details about current user', () => { });
   });
 
   describe('signIn', () => {
@@ -19,22 +19,22 @@ describe('authRouter', () => {
       //   .expect(400);
     });
 
-    it('fails when incorrect password is provided', () => {});
+    it('fails when incorrect password is provided', () => { });
 
-    it('responds with cookie if login details are correct', () => {});
+    it('responds with cookie if login details are correct', () => { });
   });
 
   describe('signUp', () => {
-    it('fails when incorrect email is provided', () => {});
+    it('fails when incorrect email is provided', () => { });
 
-    it('fails when incorrect password is provided', () => {});
+    it('fails when incorrect password is provided', () => { });
 
-    it('fails when incorrect name is provided', () => {});
+    it('fails when incorrect name is provided', () => { });
 
-    it('responds with user details if registration data is correct', () => {});
+    it('responds with user details if registration data is correct', () => { });
   });
 
   describe('signOut', () => {
-    it('clears the cookie after signout', () => {});
+    it('clears the cookie after signout', () => { });
   });
 });

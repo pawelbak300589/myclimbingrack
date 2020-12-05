@@ -1,4 +1,4 @@
-import { List } from '../models';
+const { List } = require('../models/index.js');
 
 const create = async (name, description, order, userId) => {
   return await List.create({ name, description, order, userId });
@@ -39,4 +39,4 @@ const getOne = async (id) => {
   return list;
 };
 
-export default { create, update, remove, getAll, getOne };
+module.exports = { create, update, remove, getAll, getOne };

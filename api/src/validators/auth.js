@@ -1,6 +1,6 @@
-import { body } from 'express-validator';
+const { body } = require('express-validator');
 
-export const authenticateSchema = () => {
+exports.authenticateSchema = () => {
   return [
     body('email')
       .not()
@@ -16,13 +16,13 @@ export const authenticateSchema = () => {
   ];
 };
 
-export const revokeTokenSchema = () => {
+exports.revokeTokenSchema = () => {
   return [
     body('token').not().isEmpty().withMessage('Token is mandatory.').trim(),
   ];
 };
 
-export const registerSchema = () => {
+exports.registerSchema = () => {
   return [
     body('firstName')
       .not()
@@ -72,7 +72,7 @@ export const registerSchema = () => {
   ];
 };
 
-export const verifyEmailSchema = () => {
+exports.verifyEmailSchema = () => {
   return [
     body('token')
       .not()
@@ -82,7 +82,7 @@ export const verifyEmailSchema = () => {
   ];
 };
 
-export const forgotPasswordSchema = () => {
+exports.forgotPasswordSchema = () => {
   return [
     body('email')
       .not()
@@ -94,7 +94,7 @@ export const forgotPasswordSchema = () => {
   ];
 };
 
-export const validateResetTokenSchema = () => {
+exports.validateResetTokenSchema = () => {
   return [
     body('token')
       .not()
@@ -104,7 +104,7 @@ export const validateResetTokenSchema = () => {
   ];
 };
 
-export const resetPasswordSchema = () => {
+exports.resetPasswordSchema = () => {
   return [
     body('token')
       .not()

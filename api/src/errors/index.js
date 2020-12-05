@@ -1,7 +1,7 @@
 // Re-export stuff from errors
-export * from './bad-request-error';
-export * from './custom-error';
-export * from './database-connection-error';
-export * from './not-authorized-error';
-export * from './not-found-error';
-export * from './request-validation-error';
+exports.BadRequestError = require('./bad-request-error.js');
+exports.CustomError = require('./custom-error.js');
+exports.DatabaseConnectionError = require('./database-connection-error.js');
+exports.NotAuthorizedError = require('./not-authorized-error.js');
+exports.NotFoundError = require('./not-found-error.js');
+exports.RequestValidationError = require('./request-validation-error.js');
