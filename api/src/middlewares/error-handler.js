@@ -1,16 +1,20 @@
 const CustomError = require('../errors/custom-error.js');
 
 const errorHandler = (err, req, res, next) => {
-  if (err instanceof CustomError) {
-    return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+  switch (true) {
+    case typeof err === 'string':
+      // custom application error
+      const is404 = err.toLowerCase().endsWith('not found');
+      const statusCode = is404 ? 404 : 400;
+      return res.status(statusCode).json({ message: err });
+    case err instanceof CustomError:
+      return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+    case err.name === 'UnauthorizedError':
+      // jwt authentication error
+      return res.status(401).json({ message: 'Unauthorized' });
+    default:
+      return res.status(500).json({ message: err.message });
   }
-
-  // console.error(err.message);
-  console.error(err);
-
-  res.status(400).send({
-    errors: [{ message: 'Something went wrong', error: err.message }],
-  });
 };
 
 module.exports = errorHandler;

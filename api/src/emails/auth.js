@@ -13,7 +13,7 @@ exports.sendVerificationEmail = async (user, origin) => {
 
   await sendEmail({
     to: user.email,
-    subject: 'Sign-up Verification API - Verify Email',
+    subject: 'MyClimbingRack - Verify Email',
     html: `<h4>Verify Email</h4>
              <p>Thanks for registering!</p>
              ${message}`,
@@ -30,7 +30,7 @@ exports.sendAlreadyRegisteredEmail = async (email, origin) => {
 
   await sendEmail({
     to: email,
-    subject: 'Sign-up Verification API - Email Already Registered',
+    subject: 'MyClimbingRack - Email Already Registered',
     html: `<h4>Email Already Registered</h4>
              <p>Your email <strong>${email}</strong> is already registered.</p>
              ${message}`,
@@ -50,7 +50,7 @@ exports.sendPasswordResetEmail = async (user, origin) => {
 
   await sendEmail({
     to: user.email,
-    subject: 'Sign-up Verification API - Reset Password',
+    subject: 'MyClimbingRack - Reset Password',
     html: `<h4>Reset Password Email</h4>
              ${message}`,
   });

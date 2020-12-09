@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
+const config = require('../config/app.json');
 const db = require('../models/index.js');
 const { User, RefreshToken } = require('../models/index.js');
 
@@ -44,7 +45,7 @@ exports.generateRefreshToken = (user, ipAddress) => {
   // create a refresh token that expires in 7 days
   return new RefreshToken({
     userId: user.id,
-    token: randomTokenString(),
+    token: this.randomTokenString(),
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     createdByIp: ipAddress,
   });

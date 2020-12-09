@@ -117,10 +117,16 @@ exports.resetPasswordSchema = () => {
       .withMessage('Password is mandatory.')
       .isLength({ min: 6 })
       .withMessage('Please enter password longer than 6 characters.')
+      .trim(),
+    body('confirmPassword')
+      .not()
+      .isEmpty()
+      .withMessage('Confirm password is mandatory.')
       .custom((value, { req }) => {
-        if (value !== req.body.confirmPassword) {
-          throw new Error('Password confirmation is incorrect');
+        if (value !== req.body.password) {
+          throw new Error('Password confirmation does not match password.');
         }
+        return true;
       })
       .trim(),
   ];

@@ -1,5 +1,5 @@
+const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
-const config = require('../config/app.json');
 const { User } = require('../models/index.js');
 const {
   Role,
@@ -14,9 +14,10 @@ const {
   sendPasswordResetEmail,
   sendVerificationEmail,
 } = require('../emails/index.js');
+const { basicDetails } = require('../helpers/auth');
 
 const authenticate = async ({ email, password, ipAddress }) => {
-  const user = User.scope('withHash').findOne({
+  const user = await User.scope('withHash').findOne({
     where: { email },
   });
 
