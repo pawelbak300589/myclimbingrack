@@ -7,4 +7,6 @@ COPY . .
 
 EXPOSE 3000
 
+CMD ["npm", "install"]
+CMD ["npm", "audit", "fix"]
 CMD ["npm", "start"]
