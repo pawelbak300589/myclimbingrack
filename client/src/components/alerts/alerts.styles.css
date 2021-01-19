@@ -1,0 +1,33 @@
+.alerts {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+}
+
+.alerts .alert {
+  position: relative;
+  margin-right: 20px;
+  min-width: 350px;
+}
+
+.alerts .alert.alert-normal {
+}
+
+.alerts .alert.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alerts .alert.alert-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alerts .alert.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
