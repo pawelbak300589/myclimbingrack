@@ -3,7 +3,6 @@ const express = require('express');
 const authController = require('../controllers/auth.js');
 const {
   authenticateSchema,
-  revokeTokenSchema,
   registerSchema,
   verifyEmailSchema,
   forgotPasswordSchema,
@@ -24,8 +23,6 @@ router.post('/refresh-token', authController.refreshToken);
 router.post(
   '/revoke-token',
   authorize(),
-  revokeTokenSchema(),
-  validateRequest,
   authController.revokeToken
 );
 router.post(

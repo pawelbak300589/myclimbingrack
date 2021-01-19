@@ -36,7 +36,8 @@ const refreshToken = async (req, res, next) => {
 
 const revokeToken = async (req, res, next) => {
   // accept token from request body or cookie
-  const token = req.body.token || req.cookies.refreshToken;
+  // const token = req.body.token || req.cookies.refreshToken;
+  const token = req.cookies.refreshToken;
   const ipAddress = req.ip;
 
   if (!token) return res.status(400).json({ message: 'Token is required' });
@@ -47,6 +48,8 @@ const revokeToken = async (req, res, next) => {
   }
 
   try {
+    console.log('token', token);
+
     await authService.revokeToken({ token, ipAddress });
     res.json({ message: 'Token revoked' });
   } catch (error) {

@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
       const statusCode = is404 ? 404 : 400;
       return res.status(statusCode).json({ message: err });
     case err instanceof CustomError:
-      return res.status(err.statusCode).send({ errors: err.serializeErrors() });
+      return res.status(err.statusCode).json({ errors: err.serializeErrors() });
     case err.name === 'UnauthorizedError':
       // jwt authentication error
       return res.status(401).json({ message: 'Unauthorized' });

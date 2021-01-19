@@ -16,12 +16,6 @@ exports.authenticateSchema = () => {
   ];
 };
 
-exports.revokeTokenSchema = () => {
-  return [
-    body('token').not().isEmpty().withMessage('Token is mandatory.').trim(),
-  ];
-};
-
 exports.registerSchema = () => {
   return [
     body('firstName')
