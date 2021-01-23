@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Route } from 'react-router-dom';
+import PrivateRoute from "../../components/private-route/private-route.component";
 
 import UserLayout from './user-layout.component';
 
 const UserLayoutRoutes = ({ component: Component, ...otherProps }) => {
     return (
-        <Route {...otherProps} render={props => (
+        <PrivateRoute {...otherProps} render={props => (
             <UserLayout>
                 <Component {...props} />
             </UserLayout>
