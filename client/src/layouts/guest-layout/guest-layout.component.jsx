@@ -3,14 +3,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import Header from "../../components/header/header.component";
+import GuestHeader from "../../components/header/guest-header.component";
 // <Header />
 
 const GuestLayout = props => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Header />
+      <GuestHeader />
       <Container>
         {props.children}
       </Container>

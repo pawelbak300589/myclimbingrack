@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ currentUser, logout }) => {
+const UserHeader = ({ currentUser, logout }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -214,36 +214,28 @@ const Header = ({ currentUser, logout }) => {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        {
-                            currentUser ?
-                                <React.Fragment>
-                                    <IconButton aria-label="show 4 new mails" color="inherit">
-                                        <Badge badgeContent={4} color="secondary">
-                                            <MailIcon />
-                                        </Badge>
-                                    </IconButton>
-                                    <IconButton aria-label="show 17 new notifications" color="inherit">
-                                        <Badge badgeContent={17} color="secondary">
-                                            <NotificationsIcon />
-                                        </Badge>
-                                    </IconButton>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="account of current user"
-                                        aria-controls={menuId}
-                                        aria-haspopup="true"
-                                        onClick={handleProfileMenuOpen}
-                                        color="inherit"
-                                    >
-                                        <AccountCircle />
-                                    </IconButton>
-                                </React.Fragment>
-                                :
-                                <React.Fragment>
-                                    <Button aria-label="login" color="inherit" component={Link} to='/login'>Login</Button>
-                                    <Button aria-label="register" color="inherit" component={Link} to='/register'>Register</Button>
-                                </React.Fragment>
-                        }
+                        <React.Fragment>
+                            <IconButton aria-label="show 4 new mails" color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <MailIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton aria-label="show 17 new notifications" color="inherit">
+                                <Badge badgeContent={17} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                        </React.Fragment>
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -272,4 +264,4 @@ const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(UserHeader);
