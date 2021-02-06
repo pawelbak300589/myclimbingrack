@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-// import RegisterForm from "../../components/forms/register-form/register-form.component";
+import { verifyEmail } from "../../../redux/auth/authActions";
 
-// import './verify-email.styles.css';
+const VerifyEmailPage = ({ match, verifyEmail }) => {
+    useEffect(() => {
+        const { token } = match.params;
+        verifyEmail(token);
+    }, [verifyEmail, match]);
 
-const VerifyEmailPage = () => {
-    // TODO: create layouts for GuestPages UserPages AuthPages  https://medium.com/@benkissi/creating-multiple-layouts-in-react-react-router-v5-cebde25ff6e6
     return (
-        <div className="verify-email-page">
-            verify-email Page
-        </div>
+        <React.Fragment></React.Fragment>
     );
 };
 
-export default VerifyEmailPage;
+const mapDispatchToProps = dispatch => ({
+    verifyEmail: (token) => dispatch(verifyEmail(token))
+});
+
+export default connect(null, mapDispatchToProps)(VerifyEmailPage);

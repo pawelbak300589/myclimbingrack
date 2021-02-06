@@ -12,8 +12,7 @@ import listReducer from "./list/listReducer";
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: []
-  // whitelist: ['auth']
+  whitelist: ['auth']
 }
 
 const rootReducer = combineReducers({

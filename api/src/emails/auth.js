@@ -3,7 +3,7 @@ const sendEmail = require('../helpers/email.js');
 exports.sendVerificationEmail = async (user, origin) => {
   let message;
   if (origin) {
-    const verifyUrl = `${origin}/user/verify-email?token=${user.verificationToken}`;
+    const verifyUrl = `${origin}/user/verify-email/${user.verificationToken}`;
     message = `<p>Please click the below link to verify your email address:</p>
                  <p><a href="${verifyUrl}">${verifyUrl}</a></p>`;
   } else {
@@ -40,7 +40,7 @@ exports.sendAlreadyRegisteredEmail = async (email, origin) => {
 exports.sendPasswordResetEmail = async (user, origin) => {
   let message;
   if (origin) {
-    const resetUrl = `${origin}/user/reset-password?token=${user.resetToken}`;
+    const resetUrl = `${origin}/user/reset-password/${user.resetToken}`;
     message = `<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
                  <p><a href="${resetUrl}">${resetUrl}</a></p>`;
   } else {

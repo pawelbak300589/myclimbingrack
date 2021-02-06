@@ -19,7 +19,7 @@ import { logout } from "../../redux/auth/authActions";
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: 250,
+    minWidth: 250,
     width: 'auto',
   },
   hideMobile: {

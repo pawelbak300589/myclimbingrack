@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from "reselect";
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,11 +6,12 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../../custom-button/custom-button.component";
 
-import { login } from "../../../redux/auth/authActions";
+import { login, clearErrors } from "../../../redux/auth/authActions";
 import { selectEmailErrors, selectPasswordErrors } from "../../../redux/auth/authSelectors";
 
 const useStyles = makeStyles({
@@ -27,10 +28,14 @@ const useStyles = makeStyles({
     },
 });
 
-const LoginForm = ({ login, emailErrors, passwordErrors }) => {
+const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) => {
     const classes = useStyles();
 
     const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
+
+    useEffect(() => {
+        clearErrorsAction();
+    }, [clearErrorsAction]);
 
     const { email, password } = userCredentials;
 
@@ -84,6 +89,7 @@ const LoginForm = ({ login, emailErrors, passwordErrors }) => {
                 </CardContent>
                 <CardActions>
                     <CustomButton type="submit" color="primary">Log in</CustomButton>
+                    <Link href="/register">Register!</Link>
                 </CardActions>
             </form>
         </Card>
@@ -96,7 +102,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    login: (userLoginCredentials) => dispatch(login(userLoginCredentials))
+    login: (userLoginCredentials) => dispatch(login(userLoginCredentials)),
+    clearErrorsAction: () => dispatch(clearErrors())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

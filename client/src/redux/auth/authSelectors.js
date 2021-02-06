@@ -12,6 +12,11 @@ export const selectErrors = createSelector(
   (auth) => auth.errors || []
 );
 
+export const selectIsLoading = createSelector(
+    [selectAuth],
+    (auth) => auth.loading
+);
+
 export const selectFirstNameErrors = createSelector(
   [selectErrors],
   (errors) => errors.filter(error => error.field === 'firstName')

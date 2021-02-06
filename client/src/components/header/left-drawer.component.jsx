@@ -13,7 +13,7 @@ import ListIcon from '@material-ui/icons/List';
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    minWidth: 250,
     width: 'auto',
   },
 });

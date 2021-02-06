@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from "reselect";
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ import Alert from '@material-ui/lab/Alert';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../../custom-button/custom-button.component";
 
-import { register } from "../../../redux/auth/authActions";
+import { register, clearErrors } from "../../../redux/auth/authActions";
 import {
     selectFirstNameErrors,
     selectLastNameErrors,
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
 });
 
-const RegisterForm = ({ registerStart, firstNameErrors, lastNameErrors, emailErrors, passwordErrors, confirmPasswordErrors, acceptTermsErrors }) => {
+const RegisterForm = ({ registerAction, clearErrorsAction, firstNameErrors, lastNameErrors, emailErrors, passwordErrors, confirmPasswordErrors, acceptTermsErrors }) => {
     const classes = useStyles();
 
     const [userCredentials, setUserCredentials] = useState({
@@ -51,6 +51,10 @@ const RegisterForm = ({ registerStart, firstNameErrors, lastNameErrors, emailErr
         acceptTerms: false,
     });
 
+    useEffect(() => {
+        clearErrorsAction();
+    }, [clearErrorsAction]);
+
     const { firstName, lastName, email, password, confirmPassword, acceptTerms } = userCredentials;
 
     const handleSubmit = async event => {
@@ -61,7 +65,7 @@ const RegisterForm = ({ registerStart, firstNameErrors, lastNameErrors, emailErr
             return;
         }
 
-        registerStart({ firstName, lastName, email, password, confirmPassword, acceptTerms });
+        registerAction({ firstName, lastName, email, password, confirmPassword, acceptTerms });
     };
 
     const handleChange = (event) => {
@@ -180,7 +184,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-    registerStart: (userRegisterCredentials) => dispatch(register(userRegisterCredentials))
+    registerAction: (userRegisterCredentials) => dispatch(register(userRegisterCredentials)),
+    clearErrorsAction: () => dispatch(clearErrors())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

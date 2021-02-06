@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   loading: false,
   loggedIn: false,
   currentUser: null,
+  message: null,
   errors: []
 };
 
@@ -11,29 +12,43 @@ const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case authActionTypes.LOGIN_REQUEST:
     case authActionTypes.REGISTER_REQUEST:
+    case authActionTypes.VERIFY_EMAIL_REQUEST:
       return {
         ...state,
         loading: true,
         loggedIn: false,
         currentUser: null,
+        message: null,
         errors: []
       };
     case authActionTypes.LOGIN_SUCCESS:
-      case authActionTypes.REGISTER_SUCCESS:
       return {
         ...state,
         loading: false,
         loggedIn: true,
         currentUser: action.payload,
+        message: null,
         errors: []
       };
-    case authActionTypes.LOGIN_FAILURE:
-      case authActionTypes.REGISTER_FAILURE:
+    case authActionTypes.REGISTER_SUCCESS:
+    case authActionTypes.VERIFY_EMAIL_SUCCESS:
+    case authActionTypes.VERIFY_EMAIL_FAILURE:
       return {
         ...state,
         loading: false,
         loggedIn: false,
         currentUser: null,
+        message: action.payload,
+        errors: []
+      };
+    case authActionTypes.LOGIN_FAILURE:
+    case authActionTypes.REGISTER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        loggedIn: false,
+        currentUser: null,
+        message: null,
         errors: action.payload
       };
     case authActionTypes.LOGOUT:
@@ -42,6 +57,12 @@ const authReducer = (state = INITIAL_STATE, action) => {
         loading: false,
         loggedIn: false,
         currentUser: null,
+        message: null,
+        errors: []
+      };
+    case authActionTypes.CLEAR_ERRORS:
+      return {
+        ...state,
         errors: []
       };
     default:
