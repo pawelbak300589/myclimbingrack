@@ -23,7 +23,7 @@ export const login = (userLoginCredentials) => {
 export const register = (userRegisterCredentials) => {
   const request = () => ({ type: authActionTypes.REGISTER_REQUEST });
   const success = (message) => ({ type: authActionTypes.REGISTER_SUCCESS, payload: { message: message, type: 'success' } });
-  const failure = (error) => ({ type: authActionTypes.REGISTER_FAILURE, payload: error });
+  const failure = (errors) => ({ type: authActionTypes.REGISTER_FAILURE, payload: errors });
 
   return async dispatch => {
     dispatch(request());
@@ -68,6 +68,47 @@ export const verifyEmail = (token) => {
       dispatch(success(data.message));
     } catch (error) {
       dispatch(failure(error.message));
+    }
+    history.push('/login');
+  };
+};
+
+export const forgotPassword = (email) => {
+  const request = () => ({ type: authActionTypes.FORGOT_PASSWORD_REQUEST });
+  const success = (message) => ({ type: authActionTypes.FORGOT_PASSWORD_SUCCESS, payload: { message: message, type: 'success' } });
+  const failure = (errors) => ({ type: authActionTypes.FORGOT_PASSWORD_FAILURE, payload: errors });
+
+  return async dispatch => {
+    dispatch(request());
+
+    try {
+      const { data } = await backend.post('/auth/forgot-password', { email });
+      console.log(data);
+      dispatch(success(data.message));
+      history.push('/login');
+    } catch (error) {
+      dispatch(failure(error.errors));
+    }
+  };
+};
+
+export const resetPassword = (token, resetPasswordCredentials) => {
+  const request = () => ({ type: authActionTypes.RESET_PASSWORD_REQUEST });
+  const success = (message) => ({ type: authActionTypes.RESET_PASSWORD_SUCCESS, payload: { message: message, type: 'success' } });
+  const failure = (errors) => ({ type: authActionTypes.RESET_PASSWORD_FAILURE, payload: errors });
+
+  return async dispatch => {
+    dispatch(request());
+
+    try {
+      const { data } = await backend.post('/auth/reset-password', {
+        token,
+        password: resetPasswordCredentials.password,
+        confirmPassword: resetPasswordCredentials.confirmPassword
+      });
+      dispatch(success(data.message));
+    } catch (error) {
+      dispatch(failure(error.errors));
     }
     history.push('/login');
   };

@@ -13,6 +13,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case authActionTypes.LOGIN_REQUEST:
     case authActionTypes.REGISTER_REQUEST:
     case authActionTypes.VERIFY_EMAIL_REQUEST:
+    case authActionTypes.FORGOT_PASSWORD_REQUEST:
       return {
         ...state,
         loading: true,
@@ -33,6 +34,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case authActionTypes.REGISTER_SUCCESS:
     case authActionTypes.VERIFY_EMAIL_SUCCESS:
     case authActionTypes.VERIFY_EMAIL_FAILURE:
+    case authActionTypes.FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -43,6 +45,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       };
     case authActionTypes.LOGIN_FAILURE:
     case authActionTypes.REGISTER_FAILURE:
+    case authActionTypes.FORGOT_PASSWORD_FAILURE:
       return {
         ...state,
         loading: false,

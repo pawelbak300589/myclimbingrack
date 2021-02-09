@@ -11,8 +11,8 @@ import Link from '@material-ui/core/Link';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../../custom-button/custom-button.component";
 
-import { login, clearErrors } from "../../../redux/auth/authActions";
-import { selectEmailErrors, selectPasswordErrors } from "../../../redux/auth/authSelectors";
+import { forgotPassword, clearErrors } from "../../../redux/auth/authActions";
+import { selectEmailErrors } from "../../../redux/auth/authSelectors";
 
 const useStyles = makeStyles({
     root: {
@@ -28,21 +28,21 @@ const useStyles = makeStyles({
     },
 });
 
-const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) => {
+const ForgotPasswordForm = ({ forgotPassword, clearErrors, emailErrors }) => {
     const classes = useStyles();
 
-    const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
+    const [userCredentials, setUserCredentials] = useState({ email: '' });
 
     useEffect(() => {
-        clearErrorsAction();
-    }, [clearErrorsAction]);
+        clearErrors();
+    }, [clearErrors]);
 
-    const { email, password } = userCredentials;
+    const { email } = userCredentials;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        login({ email, password });
+        forgotPassword(email);
     };
 
     const handleChange = (event) => {
@@ -61,8 +61,8 @@ const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) =>
         <Card className={classes.root} variant="outlined">
             <form onSubmit={handleSubmit}>
                 <CardContent>
-                    <Typography className={classes.title} color="textSecondary" component="h2">Login</Typography>
-                    <Typography className={classes.subtitle} color="textSecondary">Log in  with your email and password</Typography>
+                    <Typography className={classes.title} color="textSecondary" component="h2">Forgot your password?</Typography>
+                    <Typography className={classes.subtitle} color="textSecondary">Fill in your email address and we will send you password reset email.</Typography>
 
                     <div>
                         <FormInput
@@ -75,23 +75,10 @@ const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) =>
                             handleChange={handleChange}
                         />
                     </div>
-                    <div>
-                        <FormInput
-                            error={passwordErrors.length > 0}
-                            helperText={displayErrors(passwordErrors)}
-                            name="password"
-                            type="password"
-                            label="Password"
-                            value={password}
-                            handleChange={handleChange}
-                        />
-                    </div>
                 </CardContent>
                 <CardActions>
-                    <CustomButton type="submit" color="primary">Log in</CustomButton>
-                    <Link href="/register">Register!</Link>
-                    <hr />
-                    <Link href="/forgot-password">Forgot your password?</Link>
+                    <CustomButton type="submit" color="primary">Send reset password email</CustomButton>
+                    <Link href="/login">Go back</Link>
                 </CardActions>
             </form>
         </Card>
@@ -100,12 +87,11 @@ const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) =>
 
 const mapStateToProps = createStructuredSelector({
     emailErrors: selectEmailErrors,
-    passwordErrors: selectPasswordErrors
 });
 
 const mapDispatchToProps = dispatch => ({
-    login: (userLoginCredentials) => dispatch(login(userLoginCredentials)),
-    clearErrorsAction: () => dispatch(clearErrors())
+    forgotPassword: (email) => dispatch(forgotPassword(email)),
+    clearErrors: () => dispatch(clearErrors())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordForm);

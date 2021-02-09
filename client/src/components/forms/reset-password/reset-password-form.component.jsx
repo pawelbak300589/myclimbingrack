@@ -6,13 +6,15 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../../custom-button/custom-button.component";
 
-import { login, clearErrors } from "../../../redux/auth/authActions";
-import { selectEmailErrors, selectPasswordErrors } from "../../../redux/auth/authSelectors";
+import { resetPassword, clearErrors } from "../../../redux/auth/authActions";
+import {
+    selectPasswordErrors,
+    selectConfirmPasswordErrors
+} from "../../../redux/auth/authSelectors";
 
 const useStyles = makeStyles({
     root: {
@@ -28,27 +30,35 @@ const useStyles = makeStyles({
     },
 });
 
-const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) => {
+const ResetPasswordForm = ({ token, resetPasswordAction, clearErrorsAction, passwordErrors, confirmPasswordErrors }) => {
     const classes = useStyles();
 
-    const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
+    const [newPassword, setNewPassword] = useState({
+        password: '',
+        confirmPassword: '',
+    });
 
     useEffect(() => {
         clearErrorsAction();
     }, [clearErrorsAction]);
 
-    const { email, password } = userCredentials;
+    const { password, confirmPassword } = newPassword;
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async event => {
         event.preventDefault();
 
-        login({ email, password });
+        if (password !== confirmPassword) {
+            alert("password don't match");
+            return;
+        }
+
+        resetPasswordAction(token, { password, confirmPassword });
     };
 
     const handleChange = (event) => {
-        const { value, name } = event.target;
+        const { name, value } = event.target;
 
-        setUserCredentials({ ...userCredentials, [name]: value });
+        setNewPassword({ ...newPassword, [name]: value });
     };
 
     const displayErrors = (errors) => {
@@ -61,20 +71,8 @@ const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) =>
         <Card className={classes.root} variant="outlined">
             <form onSubmit={handleSubmit}>
                 <CardContent>
-                    <Typography className={classes.title} color="textSecondary" component="h2">Login</Typography>
-                    <Typography className={classes.subtitle} color="textSecondary">Log in  with your email and password</Typography>
-
-                    <div>
-                        <FormInput
-                            error={emailErrors.length > 0}
-                            helperText={displayErrors(emailErrors)}
-                            name="email"
-                            type="email"
-                            label="Email"
-                            value={email}
-                            handleChange={handleChange}
-                        />
-                    </div>
+                    <Typography className={classes.title} color="textSecondary" component="h2">Reset Password</Typography>
+                    <Typography className={classes.subtitle} color="textSecondary">Please provide new password</Typography>
                     <div>
                         <FormInput
                             error={passwordErrors.length > 0}
@@ -86,12 +84,20 @@ const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) =>
                             handleChange={handleChange}
                         />
                     </div>
+                    <div>
+                        <FormInput
+                            error={confirmPasswordErrors.length > 0}
+                            helperText={displayErrors(confirmPasswordErrors)}
+                            type="password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            handleChange={handleChange}
+                            label="Confirm Password"
+                        />
+                    </div>
                 </CardContent>
                 <CardActions>
-                    <CustomButton type="submit" color="primary">Log in</CustomButton>
-                    <Link href="/register">Register!</Link>
-                    <hr />
-                    <Link href="/forgot-password">Forgot your password?</Link>
+                    <CustomButton type="submit" color="primary">Reset Password</CustomButton>
                 </CardActions>
             </form>
         </Card>
@@ -99,13 +105,13 @@ const LoginForm = ({ login, clearErrorsAction, emailErrors, passwordErrors }) =>
 };
 
 const mapStateToProps = createStructuredSelector({
-    emailErrors: selectEmailErrors,
-    passwordErrors: selectPasswordErrors
+    passwordErrors: selectPasswordErrors,
+    confirmPasswordErrors: selectConfirmPasswordErrors
 });
 
 const mapDispatchToProps = dispatch => ({
-    login: (userLoginCredentials) => dispatch(login(userLoginCredentials)),
+    resetPasswordAction: (token, userRegisterCredentials) => dispatch(resetPassword(token, userRegisterCredentials)),
     clearErrorsAction: () => dispatch(clearErrors())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordForm);

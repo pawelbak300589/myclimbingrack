@@ -10,6 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
 
 import FormInput from "../form-input/form-input.component";
@@ -168,6 +169,7 @@ const RegisterForm = ({ registerAction, clearErrorsAction, firstNameErrors, last
                 </CardContent>
                 <CardActions>
                     <CustomButton type="submit" color="primary">Register</CustomButton>
+                    <Link href="/login">Login!</Link>
                 </CardActions>
             </form>
         </Card>
