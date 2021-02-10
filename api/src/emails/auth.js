@@ -40,11 +40,11 @@ exports.sendAlreadyRegisteredEmail = async (email, origin) => {
 exports.sendPasswordResetEmail = async (user, origin) => {
   let message;
   if (origin) {
-    const resetUrl = `${origin}/user/reset-password/${user.resetToken}`;
+    const resetUrl = `${origin}/user/validate-reset-token/${user.resetToken}`;
     message = `<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
                  <p><a href="${resetUrl}">${resetUrl}</a></p>`;
   } else {
-    message = `<p>Please use the below token to reset your password with the <code>/user/reset-password</code> api route:</p>
+    message = `<p>Please use the below token to reset your password with the <code>/user/validate-reset-token</code> api route:</p>
                  <p><code>${user.resetToken}</code></p>`;
   }
 

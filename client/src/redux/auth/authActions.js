@@ -92,6 +92,25 @@ export const forgotPassword = (email) => {
   };
 };
 
+export const validateResetToken = (token) => {
+  const request = () => ({ type: authActionTypes.VALIDATE_RESET_TOKEN_REQUEST });
+  const success = (message) => ({ type: authActionTypes.VALIDATE_RESET_TOKEN_SUCCESS, payload: { message: message, type: 'success' } });
+  const failure = (error) => ({ type: authActionTypes.VALIDATE_RESET_TOKEN_FAILURE, payload: { message: error, type: 'error' } });
+
+  return async dispatch => {
+    dispatch(request());
+
+    try {
+      const { data } = await backend.post('/auth/validate-reset-token', { token });
+      dispatch(success(data.message));
+      history.push(`/user/reset-password/${token}`);
+    } catch (error) {
+      dispatch(failure(error.message));
+      history.push('/login');
+    }
+  };
+};
+
 export const resetPassword = (token, resetPasswordCredentials) => {
   const request = () => ({ type: authActionTypes.RESET_PASSWORD_REQUEST });
   const success = (message) => ({ type: authActionTypes.RESET_PASSWORD_SUCCESS, payload: { message: message, type: 'success' } });
@@ -107,10 +126,10 @@ export const resetPassword = (token, resetPasswordCredentials) => {
         confirmPassword: resetPasswordCredentials.confirmPassword
       });
       dispatch(success(data.message));
+      history.push('/login');
     } catch (error) {
       dispatch(failure(error.errors));
     }
-    history.push('/login');
   };
 };
 

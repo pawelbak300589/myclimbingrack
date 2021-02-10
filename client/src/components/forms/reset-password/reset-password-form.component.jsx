@@ -39,7 +39,7 @@ const ResetPasswordForm = ({ token, resetPasswordAction, clearErrorsAction, pass
     });
 
     useEffect(() => {
-        clearErrorsAction();
+        // clearErrorsAction();
     }, [clearErrorsAction]);
 
     const { password, confirmPassword } = newPassword;
